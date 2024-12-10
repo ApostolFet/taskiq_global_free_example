@@ -1,0 +1,27 @@
+services:
+  worker:
+    build: .
+    command: taskiq worker my_app.broker:broker
+    depends_on:
+      - rabbit
+      - redis
+
+  web:
+    build: .
+    command: uvicorn my_app.fastapi_app:create_app --factory --host 0.0.0.0 --port 8080
+    ports:
+      - "8080:8080"
+    depends_on:
+      - worker
+
+  rabbit:
+    image: rabbitmq:latest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+
+  redis:
+    image: redis:7.4-bookworm

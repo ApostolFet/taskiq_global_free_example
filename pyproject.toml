@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "my_app"
+version = "0.1.0"
+authors = [
+    {name = "Ageev Maxim", email = "maksim170901@gmail.com"},
+]
+description = "Simulation World"
+readme = "README.md"
+requires-python = ">=3.12"
+license = {text = "MIT License"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+  "fastapi[standard]",
+  "taskiq",
+  "taskiq-aio-pika",
+  "taskiq-redis",
+  "dishka",
+  "uvicorn"
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
